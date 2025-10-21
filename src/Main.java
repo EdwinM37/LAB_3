@@ -73,7 +73,7 @@ class MovieCatalog{
                     right = mid - 1;
                 }
             }
-            //Si no, Busqueda lineal
+            //Si no, se usa Busqueda lineal
         } else{
             for(int i = 0; i < movies.size(); i++){
                 if(Math.abs(movies.get(i).getRating() - rating) <= tolerancia){
@@ -136,12 +136,12 @@ class MovieCatalog{
             while(left <= right){
                 int mid = (left+right)/2;
                 String midGenre = movies.get(mid).getGenre();
-                int comparison = midGenre.compareTo(genre);
+                int comparable = midGenre.compareTo(genre);
 
-                if(comparison == 0){
+                if(comparable == 0){
                     indice = mid;
                     break;
-                } else if(comparison < 0){
+                } else if(comparable < 0){
                     left = mid + 1;
                 } else{
                     right = mid - 1;
@@ -179,12 +179,12 @@ class MovieCatalog{
             while(left <= right){
                 int mid = (left+right)/2;
                 String midDirector = movies.get(mid).getDirector();
-                int comparison = midDirector.compareTo(director);
+                int comparable = midDirector.compareTo(director);
 
-                if(comparison == 0){
+                if(comparable == 0){
                     indice = mid;
                     break;
-                } else if(comparison < 0){
+                } else if(comparable < 0){
                     left = mid + 1;
                 } else{
                     right = mid - 1;
@@ -213,12 +213,44 @@ class MovieCatalog{
     public ArrayList<Movie> getMoviesByYear(int year){
         ArrayList<Movie> resultado = new ArrayList<>();
 
+        //Busqueda Binaria
         if(sortedByAttribute == "year"){
             int left = 0;
             int right = movies.size()-1;
             int indice = -1;
 
-        }
+            while (left <= right){
+                int mid = (left+right)/2;
+                int midYear = movies.get(mid).getReleaseYear();
+
+                if(midYear == year){
+                    indice = mid;
+                    break;
+                } else if(midYear < year){
+                    left = mid + 1;
+                } else{
+                    right = mid - 1;
+                }
+            } if(indice != -1) {
+                int i = indice;
+                while(i >= 0 && movies.get(i).getReleaseYear() == year){
+                    resultado.add(movies.get(i));
+                    i--;
+                }
+                i = indice + 1;
+                while(i<movies.size() && movies.get(i).getReleaseYear() == year){
+                    resultado.add(movies.get(i));
+                    i++;
+                }
+            }
+            //Busqueda Lineal
+        } else{
+            for(int i = 0; i < movies.size(); i++){
+                if(movies.get(i).getReleaseYear() == year){
+                    resultado.add(movies.get(i));
+                }
+            }
+        } return  resultado;
     }
 }
 
