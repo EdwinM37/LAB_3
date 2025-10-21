@@ -16,19 +16,19 @@ class Movie{
     }
 
     //Getters
-    public String getTitle() {
+    public String getTitle(){
         return title;
     }
-    public String getDirector() {
+    public String getDirector(){
         return director;
     }
-    public String getGenre() {
+    public String getGenre(){
         return genre;
     }
-    public int getReleaseYear() {
+    public int getReleaseYear(){
         return releaseYear;
     }
-    public double getRating() {
+    public double getRating(){
         return rating;
     }
 }
@@ -91,21 +91,21 @@ class MovieCatalog{
         if(sortedByAttribute == "rating"){
             int left = 0;
             int right = movies.size()-1;
-            int index = -1;
+            int indice = -1;
 
             while(left <= right){
                 int mid = (left+right)/2;
                 double midRating = movies.get(mid).getRating();
 
                 if(midRating >= lowerRating){
-                    index = mid;
+                    indice = mid;
                     right = mid - 1;
                 } else{
                     left = mid + 1;
                 }
-            } if(index == -1) {
+            } if(indice == -1) {
                 return resultado;
-            } for(int i = index; i < movies.size(); i++){
+            } for(int i = indice; i < movies.size(); i++){
                 double r = movies.get(i).getRating();
                 if(r<= higherRating){
                     resultado.add(movies.get(i));
@@ -122,6 +122,103 @@ class MovieCatalog{
                 }
             }
         } return resultado;
+    }
+
+    public ArrayList<Movie> getMoviesByGenre(String genre){
+        ArrayList<Movie> resultado = new ArrayList<>();
+
+        //Busqueda Binaria
+        if(sortedByAttribute == "genre"){
+            int left = 0;
+            int right = movies.size()-1;
+            int indice = -1;
+
+            while(left <= right){
+                int mid = (left+right)/2;
+                String midGenre = movies.get(mid).getGenre();
+                int comparison = midGenre.compareTo(genre);
+
+                if(comparison == 0){
+                    indice = mid;
+                    break;
+                } else if(comparison < 0){
+                    left = mid + 1;
+                } else{
+                    right = mid - 1;
+                }
+            } if(indice != -1) {
+                int i = indice;
+                while(i >= 0 && movies.get(i).getGenre() == genre){
+                    resultado.add(movies.get(i));
+                    i--;
+                } i=indice+1;
+                while(i<movies.size() && movies.get(i).getGenre() == genre){
+                    resultado.add(movies.get(i));
+                    i++;
+                }
+            }
+            //Busqueda Lineal
+        } else{
+            for(int i = 0; i < movies.size(); i++){
+                if(movies.get(i).getGenre() == genre){
+                    resultado.add(movies.get(i));
+                }
+            }
+        } return resultado;
+    }
+
+    public ArrayList<Movie> getMoviesByDirector(String director){
+        ArrayList<Movie> resultado = new ArrayList<>();
+
+        //Busqueda Binaria
+        if(sortedByAttribute == "director"){
+            int left = 0;
+            int right = movies.size()-1;
+            int indice = -1;
+
+            while(left <= right){
+                int mid = (left+right)/2;
+                String midDirector = movies.get(mid).getDirector();
+                int comparison = midDirector.compareTo(director);
+
+                if(comparison == 0){
+                    indice = mid;
+                    break;
+                } else if(comparison < 0){
+                    left = mid + 1;
+                } else{
+                    right = mid - 1;
+                }
+            } if(indice != -1) {
+                int i = indice;
+                while(i >= 0 && movies.get(i).getDirector() == director){
+                    resultado.add(movies.get(i));
+                    i--;
+                } i=indice+1;
+                while(i<movies.size() && movies.get(i).getDirector() == director){
+                    resultado.add(movies.get(i));
+                    i++;
+                }
+            }
+            //Busqueda Lineal
+        } else{
+            for(int i = 0; i < movies.size(); i++){
+                if(movies.get(i).getDirector() == director){
+                    resultado.add(movies.get(i));
+                }
+            }
+        } return  resultado;
+    }
+
+    public ArrayList<Movie> getMoviesByYear(int year){
+        ArrayList<Movie> resultado = new ArrayList<>();
+
+        if(sortedByAttribute == "year"){
+            int left = 0;
+            int right = movies.size()-1;
+            int indice = -1;
+
+        }
     }
 }
 
