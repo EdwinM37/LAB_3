@@ -280,6 +280,7 @@ class MovieCatalog {
             } else {
                 movies = radixSort(movies);
             }
+            //Si no coincide se usa CollectionSort
         } else {
             Collections.sort(movies, comparador);
         }
@@ -301,7 +302,9 @@ class MovieCatalog {
 
     // Merge Sort
     private ArrayList<Movie> mergeSort(ArrayList<Movie> lista, Comparator<Movie> comp) {
-        if (lista.size() <= 1) return lista;
+        if (lista.size() <= 1){
+            return lista;
+        }
 
         int mid = lista.size()/2;
         ArrayList<Movie> left = new ArrayList<>(lista.subList(0, mid));
@@ -342,11 +345,15 @@ class MovieCatalog {
         }
 
         int max = keys[0];
-        for (int k : keys) if (k > max) max = k;
+        for (int k : keys){
+            if (k > max) max = k;
+        }
 
         for (int exp = 1; max / exp > 0; exp *= 10) {
             countingSortByDigit(resultado, keys, exp, factor);
-            for (int i = 0; i < n; i++) keys[i] = (int)(resultado.get(i).getRating() * factor);
+            for (int i = 0; i < n; i++){
+                keys[i] = (int)(resultado.get(i).getRating() * factor);
+            }
         }
 
         return resultado;
