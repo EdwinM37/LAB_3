@@ -352,26 +352,26 @@ class MovieCatalog {
         return result;
     }
 
-    private void countingSortByDigit(ArrayList<Movie> list, int[] keys, int exp, int factor) {
-        int n = list.size();
-        Movie[] output = new Movie[n];
-        int[] count = new int[10];
+    private void countingSortByDigit(ArrayList<Movie> lista, int[] keys, int exp, int factor) {
+        int n = lista.size();
+        Movie[] out = new Movie[n];
+        int[] cont = new int[10];
 
         for (int i = 0; i < n; i++) {
             int digit = (keys[i] / exp) % 10;
-            count[digit]++;
+            cont[digit]++;
         }
 
-        for (int i = 1; i < 10; i++) count[i] += count[i - 1];
+        for (int i = 1; i < 10; i++) cont[i] += cont[i - 1];
 
         for (int i = n - 1; i >= 0; i--) {
             int digit = (keys[i] / exp) % 10;
-            output[count[digit] - 1] = list.get(i);
-            count[digit]--;
+            out[cont[digit] - 1] = lista.get(i);
+            cont[digit]--;
         }
 
         for (int i = 0; i < n; i++){
-            list.set(i, output[i]);
+            lista.set(i, out[i]);
         }
     }
 }
