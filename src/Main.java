@@ -257,15 +257,15 @@ class MovieCatalog {
         //Comparadores por atributo
         Comparator<Movie> comparador;
 
-        if ("rating".equals(attribute)) {
+        if("rating".equals(attribute)){
             comparador = Comparator.comparingDouble(Movie::getRating);
-        } else if ("genre".equals(attribute)) {
+        } else if("genre".equals(attribute)){
             comparador = Comparator.comparing(Movie::getGenre, String.CASE_INSENSITIVE_ORDER);
-        } else if ("director".equals(attribute)) {
+        } else if("director".equals(attribute)){
             comparador = Comparator.comparing(Movie::getDirector, String.CASE_INSENSITIVE_ORDER);
-        } else if ("year".equals(attribute)) {
+        } else if("year".equals(attribute)){
             comparador = Comparator.comparingInt(Movie::getReleaseYear);
-        } else {
+        } else{
             comparador = Comparator.comparingDouble(Movie::getRating);
         }
 
@@ -287,25 +287,25 @@ class MovieCatalog {
     }
 
     //Insertion Sort
-    private void insertionSort(ArrayList<Movie> list, Comparator<Movie> comp) {
-        for (int i = 1; i < list.size(); i++) {
-            Movie key = list.get(i);
+    private void insertionSort(ArrayList<Movie> lista, Comparator<Movie> comp) {
+        for (int i = 1; i < lista.size(); i++) {
+            Movie m = lista.get(i);
             int j = i - 1;
-            while (j >= 0 && comp.compare(list.get(j), key) > 0) {
-                list.set(j + 1, list.get(j));
+            while (j >= 0 && comp.compare(lista.get(j), m) > 0) {
+                lista.set(j + 1, lista.get(j));
                 j--;
             }
-            list.set(j + 1, key);
+            lista.set(j + 1, m);
         }
     }
 
     // Merge Sort
-    private ArrayList<Movie> mergeSort(ArrayList<Movie> list, Comparator<Movie> comp) {
-        if (list.size() <= 1) return list;
+    private ArrayList<Movie> mergeSort(ArrayList<Movie> lista, Comparator<Movie> comp) {
+        if (lista.size() <= 1) return lista;
 
-        int mid = list.size() / 2;
-        ArrayList<Movie> left = new ArrayList<>(list.subList(0, mid));
-        ArrayList<Movie> right = new ArrayList<>(list.subList(mid, list.size()));
+        int mid = lista.size()/2;
+        ArrayList<Movie> left = new ArrayList<>(lista.subList(0, mid));
+        ArrayList<Movie> right = new ArrayList<>(lista.subList(mid, lista.size()));
 
         left = mergeSort(left, comp);
         right = mergeSort(right, comp);
@@ -331,8 +331,8 @@ class MovieCatalog {
     }
 
     // Radix Sort
-    private ArrayList<Movie> radixSort(ArrayList<Movie> list) {
-        ArrayList<Movie> result = new ArrayList<>(list);
+    private ArrayList<Movie> radixSort(ArrayList<Movie> lista) {
+        ArrayList<Movie> result = new ArrayList<>(lista);
         int n = result.size();
         int[] keys = new int[n];
         int factor = 1000;
