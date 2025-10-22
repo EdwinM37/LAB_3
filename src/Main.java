@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -143,12 +146,12 @@ class MovieCatalog {
                 if (comparable == 0) {
                     // Encontramos uno, buscar alrededor
                     int i = mid;
-                    while (i >= 0 && movies.get(i).getGenre().equalsIgnoreCase(genre)) {
+                    while (i >= 0 && movies.get(i).getGenre().equals(genre)) {
                         resultado.add(movies.get(i));
                         i--;
                     }
                     i = mid + 1;
-                    while (i < movies.size() && movies.get(i).getGenre().equalsIgnoreCase(genre)) {
+                    while (i < movies.size() && movies.get(i).getGenre().equals(genre)) {
                         resultado.add(movies.get(i));
                         i++;
                     }
@@ -185,12 +188,12 @@ class MovieCatalog {
 
                 if (comparable == 0) {
                     int i = mid;
-                    while (i >= 0 && movies.get(i).getDirector().equalsIgnoreCase(director)) {
+                    while (i >= 0 && movies.get(i).getDirector().equals(director)) {
                         resultado.add(movies.get(i));
                         i--;
                     }
                     i = mid + 1;
-                    while (i < movies.size() && movies.get(i).getDirector().equalsIgnoreCase(director)) {
+                    while (i < movies.size() && movies.get(i).getDirector().equals(director)) {
                         resultado.add(movies.get(i));
                         i++;
                     }
@@ -384,6 +387,47 @@ class MovieCatalog {
 }
 
 public class Main {
-    public static void main(String[] args) {
+    /*Experimentacion
+    public static ArrayList<Movie> loadMoviesFromCSV(String filepath) {
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            boolean firstLine = true;
+
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
+
+                String[] parts = line.split(",");
+
+                if (parts.length != 5) continue;
+
+                String title = parts[0].trim();
+                String director = parts[1].trim();
+                String genre = parts[2].trim();
+                int releaseYear = Integer.parseInt(parts[3].trim());
+                double rating = Double.parseDouble(parts[4].trim());
+
+                movies.add(new Movie(title, director, genre, releaseYear, rating));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
     }
+
+    public static void main(String[] args) {
+        String csvFile = "imdb_top_1000.csv";
+        ArrayList<Movie> moviesList = loadMoviesFromCSV(csvFile);
+
+        for (int i = 0; i < 5 && i < moviesList.size(); i++) {
+            System.out.println(moviesList.get(i));
+        }
+    }
+     */
 }
