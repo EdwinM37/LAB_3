@@ -332,24 +332,24 @@ class MovieCatalog {
 
     // Radix Sort
     private ArrayList<Movie> radixSort(ArrayList<Movie> lista) {
-        ArrayList<Movie> result = new ArrayList<>(lista);
-        int n = result.size();
+        ArrayList<Movie> resultado = new ArrayList<>(lista);
+        int n = resultado.size();
         int[] keys = new int[n];
         int factor = 1000;
 
         for (int i = 0; i < n; i++) {
-            keys[i] = (int)(result.get(i).getRating() * factor);
+            keys[i] = (int)(resultado.get(i).getRating() * factor);
         }
 
         int max = keys[0];
         for (int k : keys) if (k > max) max = k;
 
         for (int exp = 1; max / exp > 0; exp *= 10) {
-            countingSortByDigit(result, keys, exp, factor);
-            for (int i = 0; i < n; i++) keys[i] = (int)(result.get(i).getRating() * factor);
+            countingSortByDigit(resultado, keys, exp, factor);
+            for (int i = 0; i < n; i++) keys[i] = (int)(resultado.get(i).getRating() * factor);
         }
 
-        return result;
+        return resultado;
     }
 
     private void countingSortByDigit(ArrayList<Movie> lista, int[] keys, int exp, int factor) {
