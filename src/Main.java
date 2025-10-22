@@ -255,36 +255,34 @@ class MovieCatalog {
 
     public void sortByAlgorithm(String algorithm, String attribute) {
         //Comparadores por atributo
-        Comparator<Movie> comparator;
+        Comparator<Movie> comparador;
 
         if ("rating".equals(attribute)) {
-            comparator = Comparator.comparingDouble(Movie::getRating);
+            comparador = Comparator.comparingDouble(Movie::getRating);
         } else if ("genre".equals(attribute)) {
-            comparator = Comparator.comparing(Movie::getGenre, String.CASE_INSENSITIVE_ORDER);
+            comparador = Comparator.comparing(Movie::getGenre, String.CASE_INSENSITIVE_ORDER);
         } else if ("director".equals(attribute)) {
-            comparator = Comparator.comparing(Movie::getDirector, String.CASE_INSENSITIVE_ORDER);
+            comparador = Comparator.comparing(Movie::getDirector, String.CASE_INSENSITIVE_ORDER);
         } else if ("year".equals(attribute)) {
-            comparator = Comparator.comparingInt(Movie::getReleaseYear);
+            comparador = Comparator.comparingInt(Movie::getReleaseYear);
         } else {
-            comparator = Comparator.comparingDouble(Movie::getRating);
+            comparador = Comparator.comparingDouble(Movie::getRating);
         }
 
         //Algoritmo seleccionado
         if ("insertionSort".equals(algorithm)) {
-            insertionSort(movies, comparator);
+            insertionSort(movies, comparador);
         } else if ("mergeSort".equals(algorithm)) {
-            movies = mergeSort(movies, comparator);
+            movies = mergeSort(movies, comparador);
         } else if ("radixSort".equals(algorithm)) {
             if (!"rating".equals(attribute)) {
-                // RadixSort solo para rating, sino usar Collections.sort
-                Collections.sort(movies, comparator);
+                Collections.sort(movies, comparador);
             } else {
                 movies = radixSort(movies);
             }
         } else {
-            Collections.sort(movies, comparator);
+            Collections.sort(movies, comparador);
         }
-
         this.sortedByAttribute = attribute;
     }
 
